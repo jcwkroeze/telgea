@@ -22,4 +22,4 @@ RUN chown node:node -R .
 USER $USERNAME
 RUN bun install --frozen-lockfile
 
-CMD ["bun", "run", "code/index.ts"]
+CMD ["bun", "test"]
