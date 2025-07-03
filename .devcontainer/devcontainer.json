@@ -1,0 +1,22 @@
+{
+  "name": "MVNO Converter",
+  "dockerComposeFile": "../compose.yaml",
+  "service": "app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "orta.vscode-jest"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "extensions.verifySignatures": false
+      }
+    }
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,consistency=cached"
+  ],
+  "workspaceFolder": "/workspace",
+  "overrideCommand": true
+}
