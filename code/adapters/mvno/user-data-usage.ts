@@ -27,6 +27,7 @@ export class MvnoUserDataUsageAdapter {
   async fetchUserDataUsage(): Promise<MvnoDataUsageResponse> {
     const response = MOCK_RESPONSE;
     this.validateResponse(response);
+    response["telgeaResponseType"] = "mvnoDataUsage";
     return response;
   }
 

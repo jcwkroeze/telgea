@@ -2,7 +2,11 @@
  * MVNO API response types.
  */
 
-export interface MvnoSmsChargeResponse {
+export interface MvnoResponse {
+  telgeaResponseType: string;
+}
+
+export interface MvnoSmsChargeResponse extends MvnoResponse {
   'soapenv:Envelope': {
     'soapenv:Header': Record<string, unknown>;
     'soapenv:Body': {
@@ -10,15 +14,15 @@ export interface MvnoSmsChargeResponse {
         'sms:UserID': string;
         'sms:PhoneNumber': string;
         'sms:MessageID': string;
-        'sms:Timestamp': string;
-        'sms:ChargeAmount': string;
+        'sms:Timestamp': Date;
+        'sms:ChargeAmount': number;
         'sms:Currency': string;
       };
     };
   };
 }
 
-export interface MvnoDataUsageResponse {
+export interface MvnoDataUsageResponse extends MvnoResponse {
   user_id: string;
   msisdn: string;
   usage: {
@@ -28,8 +32,8 @@ export interface MvnoDataUsageResponse {
       country: string;
     };
     period: {
-      start: string;
-      end: string;
+      start: Date;
+      end: Date;
     };
   };
   network: {

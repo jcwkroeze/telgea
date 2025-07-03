@@ -24,6 +24,7 @@ export class MvnoSmsChargeAdapter {
     this.validateXmlResponse(xmlResponse);
     const parsedResponse = this.parseResponse(xmlResponse);
     this.validateSchema(parsedResponse);
+    parsedResponse["telgeaResponseType"] = "mvnoSmsCharge";
     return parsedResponse as MvnoSmsChargeResponse;
   }
 
