@@ -19,7 +19,7 @@ export class MvnoSmsChargeAdapter {
   /**
    * Mock adapter that simulates fetching SMS charges from the MVNO"s SMS charge API
    */
-  async fetchSmsCharges(userId: string): Promise<MvnoSmsChargeResponse> {
+  async fetchSmsCharges(): Promise<MvnoSmsChargeResponse> {
     const xmlResponse = MOCK_RESPONSE;
     this.validateXmlResponse(xmlResponse);
     const parsedResponse = this.parseResponse(xmlResponse);
@@ -27,14 +27,14 @@ export class MvnoSmsChargeAdapter {
     return parsedResponse as MvnoSmsChargeResponse;
   }
 
-  private validateXmlResponse(xml: string): void {
+  validateXmlResponse(xml: string): void {
     const validationResult = XMLValidator.validate(xml);
     if (validationResult !== true) {
       throw new Error(`Invalid XML: ${validationResult.err.msg}`);
     }
   }
 
-  private parseResponse(xml: string): Record<string, any> {
+  parseResponse(xml: string): Record<string, any> {
     const parser = new XMLParser({
       ignoreAttributes: false,
       attributeNamePrefix: "@_",
@@ -56,7 +56,7 @@ export class MvnoSmsChargeAdapter {
     return parsedObj;
   }
 
-  private validateSchema(obj: any): void {
+  validateSchema(obj: any): void {
     if (!obj["soapenv:Envelope"]) {
       throw new Error("Missing SOAP envelope");
     }
