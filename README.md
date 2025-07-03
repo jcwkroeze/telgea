@@ -51,6 +51,7 @@ This service aggregates MVNO provider data from multiple sources (SOAP and REST 
 **What I Would Add With More Time:**
 - Runtime schema validation
 - Error handling strategies for partial data
+- Safer decimal handling for charge values
 
 ### How It Works
 

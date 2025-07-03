@@ -1,8 +1,8 @@
 /**
- * Type definitions for MVNO provider API responses
+ * MVNO API response types.
  */
 
-export interface MvnoSoapSmsResponse {
+export interface MvnoSmsChargeResponse {
   'soapenv:Envelope': {
     'soapenv:Header': Record<string, unknown>;
     'soapenv:Body': {
@@ -18,7 +18,7 @@ export interface MvnoSoapSmsResponse {
   };
 }
 
-export interface MvnoRestUsageResponse {
+export interface MvnoDataUsageResponse {
   user_id: string;
   msisdn: string;
   usage: {

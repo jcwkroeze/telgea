@@ -5,7 +5,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "orta.vscode-jest"
+        "oven.bun-vscode"
       ],
       "settings": {
         "editor.formatOnSave": true,
