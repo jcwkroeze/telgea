@@ -11,7 +11,7 @@ test("should return SMS charges in MVNO format", async () => {
     "sms:UserID": "abc123",
     "sms:MessageID": "msg789",
     "sms:PhoneNumber": "+46701234567",
-    "sms:Timestamp": new Date("2025-04-01T12:30:00Z"),
+    "sms:Timestamp": "2025-04-01T12:30:00Z",
     "sms:ChargeAmount": 0.05,
     "sms:Currency": "EUR"
   });
@@ -26,7 +26,7 @@ test("should validate schema with valid object", () => {
           "sms:UserID": "abc123",
           "sms:PhoneNumber": "+46701234567",
           "sms:MessageID": "msg789",
-          "sms:Timestamp": new Date("2025-04-01T12:30:00Z"),
+          "sms:Timestamp": "2025-04-01T12:30:00Z",
           "sms:ChargeAmount": 0.05,
           "sms:Currency": "EUR"
         }
@@ -89,7 +89,7 @@ test("should throw when required fields are missing", () => {
             "sms:UserID": "abc123",
             "sms:PhoneNumber": "+46701234567",
             "sms:MessageID": "msg789",
-            "sms:Timestamp": new Date("2025-04-01T12:30:00Z"),
+            "sms:Timestamp": "2025-04-01T12:30:00Z",
             "sms:ChargeAmount": 0.05,
             "sms:Currency": "EUR"
           }

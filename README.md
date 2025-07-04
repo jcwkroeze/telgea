@@ -52,6 +52,7 @@ This service aggregates MVNO provider data from multiple sources (SOAP and REST 
 - Runtime schema validation
 - Error handling strategies for partial data
 - Safer decimal handling for charge values
+- Dependency injection and a better way to connect types with their maps --- I just used a tag here to differentiate them.
 
 ### How It Works
 

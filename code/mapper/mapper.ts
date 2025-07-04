@@ -1,8 +1,6 @@
-import type { MvnoResponse } from "../types/mvno";
-import type { NormalizedUserData } from "../types/normalizer";
+import type { MvnoResponse } from "../adapters/response";
+import type { NormalizedUserData } from "../normalizer";
 import { config } from "./config";
-
-type MappingConfig = Record<string, string>;
 
 export class Mapper {
   map<SourceType extends MvnoResponse>(source: SourceType): Partial<NormalizedUserData> {

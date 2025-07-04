@@ -1,5 +1,5 @@
 import { XMLParser, XMLValidator } from "fast-xml-parser";
-import type { MvnoSmsChargeResponse } from "../../types/mvno";
+import type { MvnoSmsChargeResponse } from "../response";
 
 const MOCK_RESPONSE = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sms="http://provider.com/sms">
    <soapenv:Header/>
@@ -41,12 +41,6 @@ export class MvnoSmsChargeAdapter {
       attributeNamePrefix: "@_",
       removeNSPrefix: false,
       tagValueProcessor: (tagName, tagValue) => {
-        if (tagName === "sms:Timestamp") {
-          return new Date(tagValue);
-        }
-        if (tagName === "sms:PhoneNumber") {
-          return null;
-        }
         if (tagName === "sms:ChargeAmount") {
           return parseFloat(tagValue);
         }

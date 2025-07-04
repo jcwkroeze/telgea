@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test";
 import { Mapper } from "./mapper";
-import type { MvnoSmsChargeResponse, MvnoDataUsageResponse } from "../types/mvno";
+import type { MvnoSmsChargeResponse, MvnoDataUsageResponse } from "../adapters/response";
 
 test("should map SMS charge data to partial normalized format", () => {
   const mapper = new Mapper();

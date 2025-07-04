@@ -1,4 +1,4 @@
-import type { MvnoDataUsageResponse } from "../../types/mvno";
+import type { MvnoDataUsageResponse } from "../response";
 
 const MOCK_RESPONSE = {
   "user_id": "abc123",
