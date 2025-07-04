@@ -10,34 +10,31 @@ This service aggregates MVNO provider data from multiple sources (SOAP and REST 
 ```
 /code
   /adapters              # API clients returning provider-specific formats
-  /mappers               # Transform provider formats to internal format
-  /services           
-    /aggregation         # Orchestrate data collection from multiple sources
-  /config
-    mapping-config.ts    # Configurable field mappings
-  /types
-    mvno-types.ts        # Provider-specific types
-    normalizer-types.ts  # Expected format for normalizer
-  /mock-data
-    soap-responses.ts
-    rest-responses.ts
+  /collectors            # Collect data from multiple adapters for a provider
+  /mapper                # Transform provider formats to internal format
+  /normalizer.ts         # Interfaces representing an API with Telgea's normalizer
+  /aggregator            # Aggregates data from collectors into a Telgea's normalizer type
+  /database              # Mock database
 ```
 
 ### Design Principles
 
 1. **Separation of Concerns**
-   - Adapters: Simulate MVNO API calls
-   - Mappers: Transformation using configurable mappings
-   - Aggregation Service: Orchestrates collection and transformation
+   - Adapters: Return provider-specific data
+   - Collectors: Coordinate calls to multiple adapters for a specific provider
+   - Mappers: Transform provider-specific formats using configurable mappings
+   - Normalizers: Combine and validate partial data into complete objects
+   - Database: Manage user-to-service mappings
+   - Aggregator: Orchestrate the entire data collection and transformation process
 
 2. **Configurable Mappings**
    - Field mappings defined in configuration, not code
-   - Support for nested paths, arrays, and transformations
+   - Support for nested paths and transformations
    - Easy to extend for new providers without code changes
 
 3. **Type Safety**
-   - Strong typing for MVNO formats (MvnoSoapSmsResponse, MvnoRestUsageResponse)
-   - Strong typing for Telgea's internal format
+   - Strong typing for MVNO formats (MvnoSmsChargeResponse, MvnoDataUsageResponse)
+   - Strong typing for Telgea's internal format (NormalizedUserData)
    - Compile-time safety for transformations
 
 ### Key Decisions & Trade-offs
@@ -47,26 +44,32 @@ This service aggregates MVNO provider data from multiple sources (SOAP and REST 
 - Configurable mapping system that scales to new providers
 - Type safety throughout the pipeline
 - Testability with side-by-side test files
+- Clear separation between data collection, transformation, and aggregation
 
 **What I Would Add With More Time:**
 - Runtime schema validation
 - Error handling strategies for partial data
 - Safer decimal handling for charge values
-- Dependency injection and a better way to connect types with their maps --- I just used a tag here to differentiate them.
+- Full dependency injection pattern
 
 ### How It Works
 
-1. Aggregation service receives a request for user data
-2. Calls multiple adapters to get data from the MVNO
-3. Uses mapper with configuration to transform responses
-4. Combines transformed data into format for normalizer
+1. Aggregator receives a request for user data by user ID
+2. Determines which service the user belongs to using UserDatabase
+3. Gets the appropriate collector for that service using CollectorFactory
+4. Collector calls multiple adapters to fetch different data types from the provider
+5. Each response is mapped to a partial NormalizedUserData format
+6. Normalizer combines the partial results and validates the complete object
+7. Aggregator returns the complete normalized user data
 
 ### Extending for New Providers
 
 To add a new provider:
-1. Add new adapter(s)
-2. Define response format types
-3. Add mapping configuration
+1. Create new adapter(s) for the provider's APIs
+2. Create a collector that coordinates the adapters
+3. Define response format types
+4. Add mapping configuration
+5. Register the collector with the factory
 
 ## Getting Started
 
@@ -76,3 +79,4 @@ To add a new provider:
 * You can also just run `bun install --frozen-lockfile` for setup
 * Tests are run by `bun test`
 * You can also run them using `docker compose up` if you don't want to install `bun`
+* There isn't a main program per se, the main test case described in the assignment is implemented in `code/aggregator/aggregator.test.ts`
